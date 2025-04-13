@@ -40,7 +40,8 @@ pipeline {
                     // Create directory on SIT and kill any running Java process (if needed)
                     // Copy the JAR to the SIT server and deploy as property-service.jar
                     // Start the Spring Boot app with nohup in the background
-                    sh """                        
+                    sh """
+                        set -x
                         ssh ${env.SIT_SERVER} 'mkdir -p ${env.SIT_DEPLOY_PATH} && pkill -f "java -jar" || true'
                         echo "Found folder"
 
