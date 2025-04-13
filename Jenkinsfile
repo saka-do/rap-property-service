@@ -42,7 +42,8 @@ pipeline {
                     // Start the Spring Boot app with nohup in the background
                     sh """
                         set -x
-                        ssh ${env.SIT_SERVER} 'mkdir -p ${env.SIT_DEPLOY_PATH} && pkill -f "java -jar" || true'
+                        ssh ${env.SIT_SERVER} 'mkdir -p ${env.SIT_DEPLOY_PATH}'
+                        pkill -f "java -jar" || true
                         echo "Found folder"
 
                         scp ${builtJar} ${env.SIT_SERVER}:${env.SIT_DEPLOY_PATH}${env.JAR_NAME}
