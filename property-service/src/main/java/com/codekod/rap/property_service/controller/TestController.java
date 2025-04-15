@@ -11,7 +11,7 @@ public class TestController {
 
     @GetMapping("/hello")
     public String testApi(){
-        return "I am working";
+        return "Output from spring boot";
     }
 
 }
