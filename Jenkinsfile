@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         BACKEND_DIR = './property-service' // Your Spring Boot project folder, or '.' if it's root
-        SIT_SERVER = 'ubuntu@13.201.132.147' // Replace with your real SIT EC2 IP
+        SIT_SERVER = 'ubuntu@3.110.188.116' // Replace with your real SIT EC2 IP
         SIT_DEPLOY_PATH = '/home/ubuntu/property-service/' // Remote deploy path
         JAR_NAME = 'property-service.jar' // Final name for deployed JAR
     }
@@ -42,14 +42,12 @@ pipeline {
                     // Start the Spring Boot app with nohup in the background
                     sh """
                         set -x
-                        ssh ${env.SIT_SERVER} 'mkdir -p ${env.SIT_DEPLOY_PATH}'
-                        pkill -f "java -jar" || true
-                        echo "Found folder"
 
+                        #copy new jar
                         scp ${builtJar} ${env.SIT_SERVER}:${env.SIT_DEPLOY_PATH}${env.JAR_NAME}
                         echo "com 2 step"
 
-                        ssh ${env.SIT_SERVER} 'nohup java -jar ${env.SIT_DEPLOY_PATH}${env.JAR_NAME} > ${env.SIT_DEPLOY_PATH}app.log 2>&1 &'
+                        ssh ${env.SIT_SERVER} '~/property-service-deploy.sh'
                         echo "Done"
                     """
                 }
