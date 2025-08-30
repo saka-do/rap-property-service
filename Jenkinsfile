@@ -47,7 +47,7 @@ pipeline {
                         scp ${builtJar} ${env.SIT_SERVER}:${env.SIT_DEPLOY_PATH}${env.JAR_NAME}
                         echo "com 2 step"
 
-                        ssh ${env.SIT_SERVER} '~/property-service-deploy.sh'
+                        ssh ${env.SIT_SERVER} 'bash -i -c "/home/ubuntu/property-service-deploy.sh"'
                         echo "Done"
                     """
                 }
