@@ -6,9 +6,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity(name = "listing_images")
+@Entity
 @NoArgsConstructor @AllArgsConstructor
 @Getter @Setter
+@Table(name = "listing_images")
 public class ListingImage {
 
     @Id
@@ -18,6 +19,10 @@ public class ListingImage {
 
     @Column(name = "image", nullable = false, columnDefinition = "BLOB")
     private byte[] image;
+
+    @ManyToOne
+    @JoinColumn(name = "listing_id", referencedColumnName = "listing_id", nullable = false)
+    private Listing listing;
 
 
 }

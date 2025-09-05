@@ -9,7 +9,7 @@ import lombok.Setter;
 @Entity(name = "listing_address")
 @NoArgsConstructor @AllArgsConstructor
 @Getter @Setter
-public class ListingAddressModel{
+public class ListingAddress{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,8 +29,11 @@ public class ListingAddressModel{
     private String country;
 
     @Column(name = "postal_code", length = 50)
-    private Integer postalCode;
+    private String postalCode;
 
-    private Long listingId;
+//    JoinColumn(name = FK in current Entity; referencedCOlumnName= PK in FOreign Entity)
+    @OneToOne
+    @JoinColumn(name = "listing_id", referencedColumnName = "listing_id", nullable = false, unique = true)
+    private Listing listing;
 
 }
