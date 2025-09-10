@@ -6,7 +6,7 @@ server:
 # DB connection and hibernate properties
 spring:
   datasource:
-    url: jdbc:mysql://-database.c5ggqy4i82c3.ap-south-1.rds.amazonaws.com:3306/dbname
+    url: jdbc:mysql://rap-.c5ggqy4i82c3.ap-south-1.rds.amazonaws.com:3306/rap_db
     username: user
     password: 1232
   jpa:
