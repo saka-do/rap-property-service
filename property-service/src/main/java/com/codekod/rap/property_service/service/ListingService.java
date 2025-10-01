@@ -1,14 +1,18 @@
 package com.codekod.rap.property_service.service;
 
+import com.codekod.rap.property_service.dto.PropertyData;
+import com.codekod.rap.property_service.dto.PropertyDetails;
 
-import com.codekod.rap.property_service.repository.ListingRepository;
+import java.util.List;
 
-public class ListingService {
+public interface ListingService {
 
-    private ListingRepository listingRepo;
+    public Long createProperty(PropertyData propertyData);
+    public PropertyDetails updateProperty(Long propertyId,PropertyData propertyData);
 
-    ListingService(ListingRepository listingRepo){
-        this.listingRepo = listingRepo;
-    }
+    public PropertyDetails getPropertyDetails(Long listingId);
 
+    public List<PropertyDetails> getAllProperties();
+
+    public void deleteProperty(Long listingId);
 }
