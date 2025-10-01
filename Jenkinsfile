@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         BACKEND_DIR = './property-service' // Your Spring Boot project folder, or '.' if it's root
-        SIT_SERVER = 'ubuntu@3.110.188.116' // Replace with your real SIT EC2 IP
+        SIT_SERVER = 'ubuntu@ec2-13-233-155-102.ap-south-1.compute.amazonaws.com' // Replace with your real SIT EC2 IP
         SIT_DEPLOY_PATH = '/home/ubuntu/property-service/' // Remote deploy path
         JAR_NAME = 'property-service.jar' // Final name for deployed JAR
     }
