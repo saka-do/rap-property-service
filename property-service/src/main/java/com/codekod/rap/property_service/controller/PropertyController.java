@@ -6,13 +6,15 @@ import com.codekod.rap.property_service.dto.PropertyDetails;
 import com.codekod.rap.property_service.service.ListingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/properties")
+@RequestMapping("/api/properties")
 public class PropertyController {
 
 
@@ -33,11 +35,11 @@ public class PropertyController {
     /**
      * Create Property
      */
-    @PostMapping
-    public ResponseEntity<Long> createProperty(@RequestBody PropertyData propertyData){
-        return ResponseEntity.ok(
-                listingService.createProperty(propertyData)
-        );
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> saveProperty(@RequestPart("image")MultipartFile imageFile, @RequestPart("propertyData") PropertyData propertyData){
+        System.out.println(imageFile.getName() + " " + imageFile.getSize());
+        Long propertyId = listingService.createProperty(propertyData, imageFile);
+        return new ResponseEntity<Long>(propertyId, HttpStatus.CREATED);
     }
 
     /**
@@ -50,7 +52,7 @@ public class PropertyController {
     }
 
     @PutMapping("property/{propertyId}")
-    public void updateProperty(@PathVariable Long propertyId, @RequestBody PropertyData propertyData){
+    public void updateProperty(@PathVariable Long propertyId, @RequestBody PropertyDetails propertyData){
         listingService.updateProperty(propertyId, propertyData);
     }
 }

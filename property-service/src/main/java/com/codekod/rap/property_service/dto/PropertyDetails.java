@@ -13,7 +13,7 @@ import java.util.List;
 @Builder @Getter @Setter
 public class PropertyDetails {
 
-    private Long property_id;
+    private Long propertyId;
     private String name;
     private String description;
     private BigDecimal price;

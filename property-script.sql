@@ -47,3 +47,12 @@ CREATE TABLE lisitngs_amenities(listing_id BIGINT NOT NULL,
                                 
 
                         
+ -- updated listing_images script
+ ALTER TABLE listing_images DROP COLUMN image;
+
+ ALTER TABLE listing_images ADD COLUMN is_primary BOOLEAN NOT NULL;
+ ALTER TABLE listing_images ADD COLUMN s3_key VARCHAR(255) NOT NULL;
+ ALTER TABLE listing_images ADD COLUMN file_name VARCHAR(255);
+ ALTER TABLE listing_images ADD COLUMN content_type VARCHAR(50);
+ ALTER TABLE listing_images ADD COLUMN size_bytes BIGINT;
+ ALTER TABLE listing_images ADD COLUMN created_at TIMESTAMP DEFAULT current_timestamp;

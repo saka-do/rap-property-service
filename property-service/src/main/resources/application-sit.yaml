@@ -17,3 +17,17 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 8MB
+      max-request-size: 10MB
+      file-size-threshold: 0
+
+app:
+  aws:
+    region: ap-south-1
+  s3:
+    bucket-name: rap-media
+    base-prefix: properties
+    maxFileSizeMb: 8

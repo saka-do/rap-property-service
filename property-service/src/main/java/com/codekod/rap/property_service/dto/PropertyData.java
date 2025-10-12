@@ -22,5 +22,5 @@ public class PropertyData {
     private String owner;
     private List<ImageDto> imagesData;
     private List<Long> amenityIds;
-    private AddressDto address;
+    private String City;
 }
