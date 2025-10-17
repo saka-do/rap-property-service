@@ -28,6 +28,6 @@ app:
   aws:
     region: ap-south-1
   s3:
-    bucket-name: rap-media
+    bucket-name: rentaplace-media
     base-prefix: properties
     maxFileSizeMb: 8

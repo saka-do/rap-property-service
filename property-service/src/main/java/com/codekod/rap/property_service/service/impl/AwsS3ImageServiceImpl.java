@@ -15,6 +15,7 @@ import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignReques
 
 import java.io.IOException;
 import java.time.Duration;
+import java.util.UUID;
 
 @Service
 @Slf4j
@@ -36,14 +37,21 @@ public class AwsS3ImageServiceImpl implements AwsS3Service {
         String ext = "";
         if (originalFilename != null && originalFilename.contains(".")) {
             ext = originalFilename.substring(originalFilename.lastIndexOf("."));
+            originalFilename = originalFilename.substring(0,originalFilename.lastIndexOf("."));
         }
-        key = key+ (ext.isEmpty()? "" : ext);
+        String s3Key = new StringBuilder(key)
+                .append(originalFilename)
+                .append("_")
+                .append(UUID.randomUUID())
+                .append(ext).toString();
+
         PutObjectRequest putObjectRequest = PutObjectRequest.builder()
                 .bucket(bucketName)
                 .contentType(file.getContentType())
                 .contentDisposition("inline")
-                .key(key)
+                .key(s3Key)
                 .build();
+
         log.info("PutObjectRequest: {}", putObjectRequest.toString());
         try {
             s3Client.putObject(putObjectRequest, RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
@@ -52,7 +60,7 @@ public class AwsS3ImageServiceImpl implements AwsS3Service {
             log.error(errorMsg);
             throw new RuntimeException("Failed to upload file to S3", e);
         }
-        return key;
+        return s3Key;
     }
 
     @Override

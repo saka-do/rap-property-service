@@ -36,7 +36,7 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public String saveImage(MultipartFile file, Listing listing) {
-        String key = listing.getId()+ prefix+ "/"+ file.getOriginalFilename()+"_"+ UUID.randomUUID();
+        String key = prefix+ "/"+ listing.getId()+ "/";
         log.info("Uploading image to S3 with key: {}", key);
         key = this.awsS3ImageServiceImpl.uploadObject(file, bucketName, key);
         log.info("Uploaded image to S3 with key: {}", key);
