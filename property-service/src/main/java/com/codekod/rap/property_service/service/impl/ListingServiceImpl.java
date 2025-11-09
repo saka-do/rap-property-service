@@ -9,6 +9,7 @@ import com.codekod.rap.property_service.model.Listing;
 import com.codekod.rap.property_service.model.ListingAddress;
 import com.codekod.rap.property_service.model.ListingImage;
 import com.codekod.rap.property_service.repository.ListingRepository;
+import com.codekod.rap.property_service.service.AmenityService;
 import com.codekod.rap.property_service.service.ImageService;
 import com.codekod.rap.property_service.service.ListingService;
 import lombok.extern.slf4j.Slf4j;
@@ -20,17 +21,19 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
 public class ListingServiceImpl implements ListingService {
 
-    private ListingRepository listingRepo;
+    private final ListingRepository listingRepo;
     private final ImageService imageService;
-
+    private final AmenityService amenityService;
     @Autowired
-    ListingServiceImpl(ListingRepository listingRepo, ImageService imageService){
+    ListingServiceImpl(ListingRepository listingRepo, ImageService imageService, AmenityService amenityService){
         this.imageService = imageService;
+        this.amenityService = amenityService;
         this.listingRepo = listingRepo;
     }
 
@@ -66,9 +69,14 @@ public class ListingServiceImpl implements ListingService {
         listing.setOwner(property.getOwner());
         listing.setPrice(property.getPrice());
 
+        log.info("Amenities check while updating");
+        property.getAmenityIds().forEach(System.out::println);
+
+        listing.setAmenities(amenityService.loadAmenitiesByIds(property.getAmenityIds()));
+
         ListingAddress listingAddress = listing.getListingAddress();
         listingAddress.setCity(property.getAddress().city());
-        listingAddress.setStreet(property.getAddress().street());
+        listingAddress.setStreet(property.getAddress().addressLine());
         listingAddress.setState(property.getAddress().state());
         listingAddress.setPostalCode(property.getAddress().postalCode());
         listingAddress.setCountry(property.getAddress().country());
@@ -104,7 +112,7 @@ public class ListingServiceImpl implements ListingService {
     private PropertyDetails convertListingToPropertyDetails(Listing listing, Predicate<ListingImage> imageFilter){
         ListingAddress listingAddress = listing.getListingAddress();
         AddressDto addressDto = AddressDto.builder()
-                .street(listingAddress.getStreet())
+                .addressLine(listingAddress.getStreet())
                 .city(listingAddress.getCity())
                 .postalCode(listingAddress.getPostalCode())
                 .state(listingAddress.getState())
@@ -119,7 +127,7 @@ public class ListingServiceImpl implements ListingService {
                 .owner(listing.getOwner())
                 .price(listing.getPrice())
                 .imageIds(listing.getImages().stream().filter(imageFilter).map(ListingImage::getImageId).toList())
-                .amenityIds(listing.getAmenities().stream().map(Amenity::getAmenityId).toList())
+                .amenityIds(listing.getAmenities().stream().map(Amenity::getAmenityId).collect(Collectors.toList()))
                 .build();
     }
 

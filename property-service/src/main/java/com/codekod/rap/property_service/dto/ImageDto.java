@@ -5,8 +5,6 @@ package com.codekod.rap.property_service.dto;
 public record ImageDto(
         Long propertyId,
         Long imageId,
-        String fileName,
-        String format,
-        Long size
+        String imgUrl
 ) {
 }

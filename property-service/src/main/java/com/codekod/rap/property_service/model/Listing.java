@@ -42,7 +42,7 @@ public class Listing extends BaseModel{
                 joinColumns = @JoinColumn(name = "listing_id"),
                 inverseJoinColumns = @JoinColumn(name = "amenity_id")
     )
-    private Set<Amenity> amenities = new HashSet<>();
+    private List<Amenity> amenities = new ArrayList<>();
 
     public void addListingImage(ListingImage listImage){
         images.add(listImage);

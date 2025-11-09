@@ -9,6 +9,7 @@ import java.util.List;
 public interface ListingService {
 
     public Long createProperty(PropertyData propertyData, MultipartFile file);
+
     public PropertyDetails updateProperty(Long propertyId,PropertyDetails propertyData);
 
     public PropertyDetails getPropertyDetails(Long listingId);

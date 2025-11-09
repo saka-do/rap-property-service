@@ -4,7 +4,7 @@ import lombok.Builder;
 
 @Builder
 public record AddressDto(
-        String street,
+        String addressLine,
         String city,
         String state,
         String country,

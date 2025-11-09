@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class AmenityServiceImpl implements AmenityService {
@@ -43,5 +44,9 @@ public class AmenityServiceImpl implements AmenityService {
         }
 
         return amenities;
+    }
+
+    public List<Amenity> loadAmenitiesByIds(List<Long> amenityIds){
+        return this.amenityRepo.findAllById(amenityIds);
     }
 }

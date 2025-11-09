@@ -18,7 +18,6 @@ public class PropertyDetails {
     private String description;
     private BigDecimal price;
     private String owner;
-    private String thumbnailImage; //base64 encoded image for thumbnail
     private List<Long> imageIds;
     private List<Long> amenityIds;
     private AddressDto address;

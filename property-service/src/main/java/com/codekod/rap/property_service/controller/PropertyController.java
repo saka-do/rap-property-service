@@ -43,6 +43,15 @@ public class PropertyController {
     }
 
     /**
+     * Read Property by Id
+     */
+    @GetMapping("/property/{propertyId}")
+    public ResponseEntity<PropertyDetails> fetchProperty(@PathVariable Long propertyId){
+        return ResponseEntity.ok(
+                listingService.getPropertyDetails(propertyId)
+        );
+    }
+    /**
      * Delete Property by Id
      */
     @DeleteMapping("/property/{propertyId}")
@@ -51,8 +60,10 @@ public class PropertyController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping("property/{propertyId}")
-    public void updateProperty(@PathVariable Long propertyId, @RequestBody PropertyDetails propertyData){
-        listingService.updateProperty(propertyId, propertyData);
+    @PutMapping("/property/{propertyId}")
+    public ResponseEntity<PropertyDetails> updateProperty(@PathVariable Long propertyId, @RequestBody PropertyDetails propertyData){
+        return ResponseEntity.ok(
+                listingService.updateProperty(propertyId, propertyData)
+        );
     }
 }
