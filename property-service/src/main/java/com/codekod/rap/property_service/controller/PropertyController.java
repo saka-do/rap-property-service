@@ -4,6 +4,7 @@ package com.codekod.rap.property_service.controller;
 import com.codekod.rap.property_service.dto.PropertyData;
 import com.codekod.rap.property_service.dto.PropertyDetails;
 import com.codekod.rap.property_service.service.ListingService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
