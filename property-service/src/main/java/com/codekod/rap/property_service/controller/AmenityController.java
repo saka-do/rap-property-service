@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/amenities")
+@RequestMapping("/api/amenities")
 public class AmenityController {
 
     private final AmenityService amenityService;

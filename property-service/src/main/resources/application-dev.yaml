@@ -7,7 +7,7 @@ server:
 # DB connection and hibernate properties
 spring:
   datasource:
-    url: jdbc:mysql://rap-databas.rds.amazonaws.com:3306/rap_db
+    url: jdbc:mysql://rap-database..ap-south-1.rds.amazonaws.com:3306/rap_db
     username:
     password:
   jpa:
@@ -32,3 +32,10 @@ app:
     bucket-name: rentaplace-media
     base-prefix: properties
     maxFileSizeMb: 8
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.security.web.access.intercept.FilterSecurityInterceptor: TRACE
+    org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter: DEBUG
+    org.springframework.security.authentication.ProviderManager: DEBUG
